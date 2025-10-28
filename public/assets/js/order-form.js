@@ -499,9 +499,24 @@ function showToast(message, type = 'success') {
   toast.className = `toast align-items-center text-white border-0`;
   toast.classList.add(type === 'danger' ? 'bg-danger' : 'bg-success');
   
-  // Show toast
-  const bsToast = new bootstrap.Toast(toast);
-  bsToast.show();
+  // Show toast - check if Bootstrap is available
+  if (typeof bootstrap !== 'undefined') {
+    const bsToast = new bootstrap.Toast(toast);
+    bsToast.show();
+  } else {
+    // Fallback: simple alert if Bootstrap is not loaded
+    console.warn('Bootstrap not loaded, using fallback notification');
+    // Show toast manually
+    toast.style.display = 'block';
+    toast.style.opacity = '1';
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => {
+        toast.style.display = 'none';
+        toast.style.opacity = '1';
+      }, 300);
+    }, 3000);
+  }
 }
 
 // Initialize application

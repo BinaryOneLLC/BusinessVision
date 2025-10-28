@@ -74,10 +74,12 @@ chmod 755 data/orders
 ### 4. Start the Development Server
 
 ```bash
-php -S localhost:8000 -t public
+php -S localhost:8000 router.php
 ```
 
 The application will be available at `http://localhost:8000`
+
+**Note**: Use the `router.php` file (not `-t public`) to ensure API endpoints and static assets are properly routed.
 
 ## Usage
 
@@ -274,7 +276,7 @@ These functions are exported for potential testing.
 
 ### Testing Locally
 
-1. Start the server: `php -S localhost:8000 -t public`
+1. Start the server: `php -S localhost:8000 router.php`
 2. Open browser to `http://localhost:8000`
 3. Check health endpoint: `http://localhost:8000/api/health.php`
 4. Create test orders with various scenarios
@@ -293,7 +295,7 @@ The application includes print-friendly CSS. Use browser's Print function (Ctrl/
 **Solution**: Ensure you're using POST for submit-order.php endpoint
 
 **Problem**: Port 8000 already in use
-**Solution**: Use a different port: `php -S localhost:8080 -t public`
+**Solution**: Use a different port: `php -S localhost:8080 router.php`
 
 **Problem**: Orders not saving
 **Solution**: Check PHP error logs and verify write permissions on `data/orders/`

@@ -141,6 +141,18 @@ input[type="number"] {
   z-index: 1050;
 }
 
+.toast {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.bg-success {
+  background-color: var(--success-color) !important;
+}
+
+.bg-danger {
+  background-color: var(--danger-color) !important;
+}
+
 /* Loading state */
 .btn:disabled {
   cursor: not-allowed;
