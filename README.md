@@ -90,11 +90,11 @@ BusinessVision/
 
 3. **Test the health endpoint**
    ```
-   http://localhost:8000/../api/health.php
+   http://localhost:8000/api/health.php
    ```
    Or using curl:
    ```bash
-   curl http://localhost:8000/../api/health.php
+   curl http://localhost:8000/api/health.php
    ```
 
 ### Alternative: Using a different port
