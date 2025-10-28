@@ -29,6 +29,7 @@ A modern, responsive web-based order entry system built with HTML5, Bootstrap 5,
 BusinessVision/
 ├── public/                      # Public web root
 │   ├── index.html              # Main order entry form
+│   ├── router.php              # Request router for PHP server
 │   └── assets/
 │       ├── css/
 │       │   └── styles.css      # Custom styles
@@ -76,8 +77,10 @@ BusinessVision/
 
 1. **Start the server from the public directory**
    ```bash
-   php -S localhost:8000 -t public
+   php -S localhost:8000 -t public public/router.php
    ```
+   
+   The router.php file handles API requests routing.
 
 2. **Access the application**
    Open your browser and navigate to:
@@ -97,7 +100,7 @@ BusinessVision/
 ### Alternative: Using a different port
 
 ```bash
-php -S localhost:3000 -t public
+php -S localhost:3000 -t public public/router.php
 ```
 
 Then access at `http://localhost:3000`
