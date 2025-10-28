@@ -1,0 +1,179 @@
+/* Custom styles for BusinessVision Order Entry */
+
+:root {
+  --primary-color: #0d6efd;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+}
+
+body {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Navbar styling */
+.navbar-brand {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Card styling */
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: none;
+}
+
+.card-header {
+  background-color: #fff;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+/* Table styling */
+.table-responsive {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+#lineItemsTable {
+  margin-bottom: 0;
+}
+
+#lineItemsTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+#lineItemsTable tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+#lineItemsTable input[type="text"],
+#lineItemsTable input[type="number"] {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+}
+
+#lineItemsTable input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+#lineItemsTable .read-only {
+  background-color: #f8f9fa;
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Action bar */
+.action-bar {
+  box-shadow: 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-top: 2rem;
+}
+
+/* Remove row button */
+.btn-remove-line {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Form validation */
+.was-validated .form-control:invalid {
+  border-color: var(--danger-color);
+}
+
+.was-validated .form-control:valid {
+  border-color: #198754;
+}
+
+/* Number inputs alignment */
+input[type="number"] {
+  text-align: right;
+}
+
+/* Summary table styling */
+.table-sm td {
+  padding: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .action-bar {
+    position: relative !important;
+  }
+  
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+  
+  #lineItemsTable th,
+  #lineItemsTable td {
+    white-space: nowrap;
+  }
+}
+
+/* Print styles */
+@media print {
+  .navbar,
+  .action-bar,
+  .btn {
+    display: none !important;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid #dee2e6;
+    page-break-inside: avoid;
+  }
+  
+  body {
+    background-color: white;
+  }
+}
+
+/* Toast styling */
+.toast-container {
+  z-index: 1050;
+}
+
+/* Loading state */
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Focus states for accessibility */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Empty state for line items */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+/* Highlight positive/negative values */
+.text-profit {
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+.text-loss {
+  color: var(--danger-color);
+  font-weight: 600;
+}

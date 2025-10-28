@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BusinessVision Order Entry System">
+  <title>BusinessVision - Order Entry</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">
+        <i class="bi bi-shop"></i> BusinessVision Order Entry
+      </span>
+    </div>
+  </nav>
+
+  <main class="container-fluid py-4">
+    <form id="orderForm" novalidate>
+      
+      <!-- Header Section -->
+      <section class="card mb-4">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="bi bi-file-earmark-text"></i> Order Header</h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label for="orderNumber" class="form-label">Order Number</label>
+              <input type="text" class="form-control" id="orderNumber" name="orderNumber" 
+                     placeholder="Auto-generated if empty">
+            </div>
+            <div class="col-md-3">
+              <label for="customerNo" class="form-label">Customer No. <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="customerNo" name="customerNo" required>
+              <div class="invalid-feedback">Customer Number is required</div>
+            </div>
+            <div class="col-md-3">
+              <label for="shipToId" class="form-label">Ship-to ID</label>
+              <input type="text" class="form-control" id="shipToId" name="shipToId">
+            </div>
+            <div class="col-md-3">
+              <label for="poNumber" class="form-label">P.O. No.</label>
+              <input type="text" class="form-control" id="poNumber" name="poNumber">
+            </div>
+          </div>
+          
+          <div class="row g-3 mt-2">
+            <div class="col-md-3">
+              <label for="status" class="form-label">Status</label>
+              <select class="form-select" id="status" name="status">
+                <option value="Draft" selected>Draft</option>
+                <option value="Open">Open</option>
+                <option value="On Hold">On Hold</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="orderDate" class="form-label">Order Date</label>
+              <input type="date" class="form-control" id="orderDate" name="orderDate">
+            </div>
+            <div class="col-md-3">
+              <label for="requiredDate" class="form-label">Required Date</label>
+              <input type="date" class="form-control" id="requiredDate" name="requiredDate">
+            </div>
+            <div class="col-md-3">
+              <label for="invoiceDate" class="form-label">Invoice Date</label>
+              <input type="date" class="form-control" id="invoiceDate" name="invoiceDate">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Line Items Section -->
+      <section class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0"><i class="bi bi-list-ul"></i> Line Items</h5>
+          <button type="button" class="btn btn-sm btn-success" id="addLineBtn">
+            <i class="bi bi-plus-circle"></i> Add Line
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-sm table-hover" id="lineItemsTable">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 80px;">Whse</th>
+                  <th style="width: 120px;">Part No.</th>
+                  <th>Description</th>
+                  <th style="width: 80px;">UOM</th>
+                  <th style="width: 100px;">Qty</th>
+                  <th style="width: 110px;">Unit Price</th>
+                  <th style="width: 110px;">Cost Price</th>
+                  <th style="width: 60px;" class="text-center">Tax 1</th>
+                  <th style="width: 60px;" class="text-center">Tax 2</th>
+                  <th style="width: 110px;">Extd. Price</th>
+                  <th style="width: 90px;">Margin %</th>
+                  <th style="width: 60px;"></th>
+                </tr>
+              </thead>
+              <tbody id="lineItemsBody">
+                <!-- Line items will be added dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Summary Section -->
+      <section class="card mb-4">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="bi bi-calculator"></i> Order Summary</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 offset-md-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="text-end fw-bold">Entries:</td>
+                    <td class="text-end" id="entriesCount">0</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end fw-bold">Subtotal:</td>
+                    <td class="text-end" id="subtotal">$0.00</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end fw-bold">
+                      <label for="discount" class="form-label mb-0">Discount:</label>
+                    </td>
+                    <td class="text-end">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control text-end" id="discount" 
+                               name="discount" value="0" min="0" step="0.01">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-end fw-bold">
+                      <label for="freight" class="form-label mb-0">Freight:</label>
+                    </td>
+                    <td class="text-end">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control text-end" id="freight" 
+                               name="freight" value="0" min="0" step="0.01">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-end fw-bold">GST/HST (5%):</td>
+                    <td class="text-end" id="gstAmount">$0.00</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end fw-bold">P.S.T. (8%):</td>
+                    <td class="text-end" id="pstAmount">$0.00</td>
+                  </tr>
+                  <tr class="table-primary">
+                    <td class="text-end fw-bold">Total:</td>
+                    <td class="text-end fw-bold" id="total">$0.00</td>
+                  </tr>
+                  <tr class="table-success">
+                    <td class="text-end fw-bold">Gross Profit:</td>
+                    <td class="text-end fw-bold" id="grossProfit">$0.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Action Bar (Sticky) -->
+      <div class="action-bar sticky-bottom bg-white border-top py-3">
+        <div class="container-fluid">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="text-muted">
+              <small id="statusMessage">Ready</small>
+            </div>
+            <div>
+              <button type="button" class="btn btn-outline-secondary me-2" id="resetBtn">
+                <i class="bi bi-arrow-counterclockwise"></i> Reset
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Save Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </main>
+
+  <!-- Toast Container for Notifications -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastMessage">
+          Order saved successfully!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Custom JS (ES Module) -->
+  <script type="module" src="assets/js/order-form.js"></script>
+</body>
+</html>

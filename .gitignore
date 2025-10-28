@@ -1,0 +1,21 @@
+# Data files (except .gitkeep)
+data/orders/*
+!data/orders/.gitkeep
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# PHP
+vendor/
+composer.lock
+
+# Logs
+*.log
+
+# OS files
+Thumbs.db
