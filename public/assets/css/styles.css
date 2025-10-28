@@ -1,0 +1,244 @@
+/* Custom styles for BusinessVision Order Form */
+
+:root {
+  --bv-primary: #0d6efd;
+  --bv-secondary: #6c757d;
+  --bv-success: #198754;
+  --bv-danger: #dc3545;
+  --bv-light-bg: #f8f9fa;
+}
+
+body {
+  background-color: var(--bv-light-bg);
+  min-height: 100vh;
+}
+
+/* Header styling */
+header {
+  background-color: white;
+}
+
+/* Card styling */
+.card {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+  font-weight: 600;
+}
+
+/* Table styling */
+#lineItemsTable {
+  font-size: 0.9rem;
+}
+
+#lineItemsTable thead th {
+  background-color: var(--bv-light-bg);
+  font-weight: 600;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#lineItemsTable tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
+#lineItemsTable input[type="text"],
+#lineItemsTable input[type="number"] {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  min-width: 60px;
+}
+
+#lineItemsTable input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Input field sizes for line items */
+.line-warehouse {
+  max-width: 80px;
+}
+
+.line-part {
+  min-width: 120px;
+}
+
+.line-description {
+  min-width: 180px;
+}
+
+.line-uom {
+  max-width: 70px;
+}
+
+.line-qty,
+.line-unit-price,
+.line-cost-price {
+  max-width: 100px;
+}
+
+.line-extd-price,
+.line-margin {
+  min-width: 100px;
+  background-color: #e9ecef;
+  font-weight: 500;
+}
+
+/* Action buttons in table */
+.btn-remove-line {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Sticky action bar */
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+  z-index: 1020;
+}
+
+/* Required field indicator */
+.text-danger {
+  font-weight: bold;
+}
+
+/* Form validation styling */
+.was-validated .form-control:invalid {
+  border-color: var(--bv-danger);
+}
+
+.was-validated .form-control:valid {
+  border-color: var(--bv-success);
+}
+
+/* Alert styling */
+.alert {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Summary table styling */
+.table-sm td {
+  padding: 0.5rem;
+}
+
+.table-active {
+  background-color: rgba(13, 110, 253, 0.1) !important;
+}
+
+.table-info {
+  background-color: rgba(13, 202, 240, 0.1) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.8rem;
+  }
+  
+  #lineItemsTable input[type="text"],
+  #lineItemsTable input[type="number"] {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.3rem;
+  }
+  
+  .sticky-bottom {
+    position: fixed;
+  }
+}
+
+/* Print styles */
+@media print {
+  .sticky-bottom {
+    display: none;
+  }
+  
+  .btn-remove-line {
+    display: none;
+  }
+  
+  #addLineBtn {
+    display: none;
+  }
+  
+  body {
+    background-color: white;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid #dee2e6 !important;
+    page-break-inside: avoid;
+  }
+  
+  .card-header {
+    background-color: #f8f9fa !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* Accessibility improvements */
+.form-label {
+  font-weight: 500;
+}
+
+input:focus,
+select:focus,
+button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+/* Loading state */
+.btn.loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spinner 0.6s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--bv-secondary);
+}
+
+.empty-state i {
+  font-size: 3rem;
+  opacity: 0.5;
+}

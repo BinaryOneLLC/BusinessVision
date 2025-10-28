@@ -1,0 +1,28 @@
+# Data files (keep structure, ignore content)
+data/orders/*.json
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+*.log
+/tmp/
+
+# PHP
+vendor/
+composer.lock
+
+# Node modules (if needed later)
+node_modules/
+package-lock.json
+
+# OS files
+Thumbs.db
+.AppleDouble
+.LSOverride
