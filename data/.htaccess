@@ -1,0 +1,12 @@
+# Business Vision - Protect data directory
+# Deny all access to files in this directory
+
+<Files "*">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# Alternative for Apache 2.4+
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
