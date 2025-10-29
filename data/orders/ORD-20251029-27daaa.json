@@ -1,0 +1,20 @@
+{
+    "customerName": "John Doe",
+    "customerEmail": "john.doe@example.com",
+    "customerPhone": "555-1234",
+    "orderDate": "2025-10-29",
+    "lineItems": [
+        {
+            "description": "Premium Widget",
+            "quantity": 5,
+            "unitPrice": 99.99,
+            "lineTotal": 499.95
+        }
+    ],
+    "subtotal": 499.95,
+    "tax": 49.995000000000005,
+    "total": 549.945,
+    "orderId": "ORD-20251029-27daaa",
+    "createdAt": "2025-10-29 17:51:46",
+    "status": "pending"
+}
