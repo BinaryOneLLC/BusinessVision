@@ -191,6 +191,10 @@ async function handleSubmit(event) {
     }
     
     // Get form data
+    const subtotal = calculateSubtotal();
+    const tax = Math.round(subtotal * config.taxRate * 100) / 100;
+    const total = Math.round((subtotal + tax) * 100) / 100;
+    
     const orderData = {
         customerName: form.customerName.value,
         customerEmail: form.customerEmail.value,
@@ -200,11 +204,11 @@ async function handleSubmit(event) {
             description: item.description,
             quantity: item.quantity,
             unitPrice: item.unitPrice,
-            lineTotal: item.quantity * item.unitPrice
+            lineTotal: Math.round(item.quantity * item.unitPrice * 100) / 100
         })),
-        subtotal: calculateSubtotal(),
-        tax: calculateSubtotal() * config.taxRate,
-        total: calculateSubtotal() * (1 + config.taxRate)
+        subtotal: subtotal,
+        tax: tax,
+        total: total
     };
     
     // Disable submit button and show loading state
