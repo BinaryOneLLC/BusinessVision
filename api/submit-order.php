@@ -283,8 +283,7 @@ try {
             'freight' => sanitizeNumber($input['summary']['freight'] ?? 0),
             'gst' => sanitizeNumber($input['summary']['gst'] ?? 0),
             'pst' => sanitizeNumber($input['summary']['pst'] ?? 0),
-            'total' => sanitizeNumber($input['summary']['total'] ?? 0),
-            'grossProfit' => sanitizeNumber($input['summary']['grossProfit'] ?? 0, -PHP_FLOAT_MAX)
+            'total' => sanitizeNumber($input['summary']['total'] ?? 0)
         ]
     ];
     

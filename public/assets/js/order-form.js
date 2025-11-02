@@ -25,17 +25,6 @@ export function calculateExtendedPrice(quantity, unitPrice) {
 }
 
 /**
- * Calculate margin percentage: (1 - cost/unit) * 100
- */
-export function calculateMargin(costPrice, unitPrice) {
-  const cost = parseFloat(costPrice) || 0;
-  const price = parseFloat(unitPrice) || 0;
-  
-  if (price <= 0) return 0;
-  return ((1 - (cost / price)) * 100);
-}
-
-/**
  * Calculate subtotal from all line items
  */
 export function calculateSubtotal(items) {
@@ -74,19 +63,6 @@ export function calculatePST(items, rate) {
     return sum;
   }, 0);
   return taxableAmount * rate;
-}
-
-/**
- * Calculate gross profit (subtotal - total cost)
- */
-export function calculateGrossProfit(items) {
-  const subtotal = calculateSubtotal(items);
-  const totalCost = items.reduce((sum, item) => {
-    const qty = parseFloat(item.quantity) || 0;
-    const cost = parseFloat(item.costPrice) || 0;
-    return sum + (qty * cost);
-  }, 0);
-  return subtotal - totalCost;
 }
 
 /**
@@ -184,10 +160,6 @@ function createLineItemRow() {
              data-field="extendedPrice" readonly value="$0.00">
     </td>
     <td>
-      <input type="text" class="form-control form-control-sm read-only" 
-             data-field="margin" readonly value="0.00%">
-    </td>
-    <td>
       <button type="button" class="btn btn-sm btn-outline-danger btn-remove-line" 
               aria-label="Remove line">
         <i class="bi bi-trash"></i>
@@ -237,24 +209,6 @@ function updateLineCalculations(row) {
   if (extPriceInput) {
     extPriceInput.value = formatCurrency(extPrice);
   }
-  
-  // Calculate margin
-  const margin = calculateMargin(data.costPrice, data.unitPrice);
-  const marginInput = row.querySelector('[data-field="margin"]');
-  if (marginInput) {
-    marginInput.value = formatPercentage(margin);
-    
-    // Color code margin
-    if (margin < 0) {
-      marginInput.classList.add('text-loss');
-      marginInput.classList.remove('text-profit');
-    } else if (margin > 0) {
-      marginInput.classList.add('text-profit');
-      marginInput.classList.remove('text-loss');
-    } else {
-      marginInput.classList.remove('text-profit', 'text-loss');
-    }
-  }
 }
 
 /**
@@ -272,7 +226,6 @@ function updateSummary() {
   const gst = calculateGST(lineItems, CONFIG.taxRates.gst);
   const pst = calculatePST(lineItems, CONFIG.taxRates.pst);
   const total = calculateTotal(subtotal, discount, freight, gst, pst);
-  const grossProfit = calculateGrossProfit(lineItems);
   const entries = countEntries(lineItems);
   
   // Update display
@@ -281,19 +234,6 @@ function updateSummary() {
   document.getElementById('gstAmount').textContent = formatCurrency(gst);
   document.getElementById('pstAmount').textContent = formatCurrency(pst);
   document.getElementById('total').textContent = formatCurrency(total);
-  document.getElementById('grossProfit').textContent = formatCurrency(grossProfit);
-  
-  // Color code gross profit
-  const gpElement = document.getElementById('grossProfit');
-  if (grossProfit < 0) {
-    gpElement.classList.add('text-loss');
-    gpElement.classList.remove('text-profit');
-  } else if (grossProfit > 0) {
-    gpElement.classList.add('text-profit');
-    gpElement.classList.remove('text-loss');
-  } else {
-    gpElement.classList.remove('text-profit', 'text-loss');
-  }
 }
 
 /**
@@ -400,8 +340,7 @@ function getFormData() {
         parseFloat(document.getElementById('freight').value) || 0,
         calculateGST(lineItems, CONFIG.taxRates.gst),
         calculatePST(lineItems, CONFIG.taxRates.pst)
-      ),
-      grossProfit: calculateGrossProfit(lineItems)
+      )
     }
   };
 }
